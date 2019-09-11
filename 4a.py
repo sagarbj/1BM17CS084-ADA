@@ -23,7 +23,7 @@ class Graph:
 				cc.append(self.DFSUtil(temp, v, visited)) 
 		return cc  
 if __name__=="__main__": 		 	 
-	g =.py Graph(5); 
+	g =Graph(5); 
 	g.addEdge(1, 0) 
 	g.addEdge(2, 3) 
 	g.addEdge(3, 4) 
