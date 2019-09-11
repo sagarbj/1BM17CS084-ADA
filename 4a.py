@@ -1,33 +1,39 @@
-class Graph: 		
-	def __init__(self,V): 
-		self.V = V 
-		self.adj = [[] for i in range(V)] 
-	def DFSUtil(self, temp, v, visited): 		
-		visited[v] = True	
-		temp.append(v) 		 		
-		for i in self.adj[v]: 
-			if visited[i] == False: 					
-				temp = self.DFSUtil(temp, i, visited) 
-		return temp 	
-	def addEdge(self, v, w): 
-		self.adj[v].append(w) 
-		self.adj[w].append(v) 		 
-	def connectedComponents(self): 
-		visited = [] 
-		cc = [] 
-		for i in range(self.V): 
-			visited.append(False) 
-		for v in range(self.V): 
-			if visited[v] == False: 
-				temp = [] 
-				cc.append(self.DFSUtil(temp, v, visited)) 
-		return cc  
-if __name__=="__main__": 		 	 
-	g =Graph(5); 
-	g.addEdge(1, 0) 
-	g.addEdge(2, 3) 
-	g.addEdge(3, 4) 
-	cc = g.connectedComponents() 
-	print("Following are connected components") 
-	print(cc) 
+#include<iostream>
+#include<vector>
+using namespace std;
 
+int n;
+
+void dfs(int vertex,int isVisited[], int n, int *a){
+    isVisited[vertex]=1;
+    cout<<vertex<<" ";
+    for(int i=0;i<n;i++){
+        if(a[vertex*n+i]==1 && isVisited[i]==0){
+            dfs(i, isVisited, n, a);
+        }
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    cout<<"enter the no of vertices";
+    cin>>n;
+    int isVisited[n];
+    int a[n][n]; 
+    cout<<"enter the vertices as matrix:";	
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>a[i][j];
+        }
+    }
+    for(int i=0;i<n;i++){
+        isVisited[i]=0;
+    }
+    for(int i=0;i<n;i++){
+        if(isVisited[i]==0){
+            dfs(i, isVisited, n, (int *)a);
+            cout<<"\n";
+        }
+    }
+    return 0;
+}
